@@ -1,3 +1,3 @@
-module github.com/yagizklc/http-server-from-scratch-go
+module github.com/yagizklc/from-scratch-http-server-go
 
 go 1.22
