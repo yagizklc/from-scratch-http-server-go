@@ -11,7 +11,7 @@ GOFILES=$(GOBASE)/app/*.go
 # Make is verbose in Linux. Make it silent.
 MAKEFLAGS += --silent
 
-.PHONY: all build clean run air deps vet fmt test integration builder doctor integration-doctor
+.PHONY: all build clean run air deps vet fmt test integration builder doctor integration-doctor run-container containerize
 
 all: build
 
@@ -57,6 +57,16 @@ doctor: fmt vet test build
 integration-doctor: fmt vet test integration build
 	@echo "All checks and integration tests passed!"
 
+
+containerize:
+	@echo "Building container..."
+	@docker build -t my-http-server:latest .
+	@echo "Container built!"
+
+run-container: containerize
+	@echo "Running container..."
+	@docker run --name my-http-server -p 8080:8080 my-http-server:latest
+
 # Help target
 help:
 	@echo "Available targets:"
@@ -71,4 +81,6 @@ help:
 	@echo "  integration      - Run integration tests"
 	@echo "  doctor           - Run vet, test, and build"
 	@echo "  integration-doctor - Run vet, test, integration tests, and build"
+	@echo "  containerize     - Build container"
+	@echo "  run-container    - Run container"
 	@echo "  help             - Print this help message"

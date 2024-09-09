@@ -3,13 +3,14 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"net"
 	"os"
 	"strings"
 )
 
 const (
-	PORT = "4221"
+	PORT = "8080"
 	HOST = "localhost"
 )
 
@@ -79,6 +80,7 @@ func handleConnection(conn net.Conn) {
 		}
 	}
 
+	log.Printf("%s %s %d\n", request.Method, request.Target, response.StatusCode)
 	conn.Write([]byte(response.String()))
 }
 

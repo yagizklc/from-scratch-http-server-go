@@ -86,7 +86,6 @@ func _parseHeader(buf *bytes.Buffer) (*Request, error) {
 			header.AcceptEncoding = value
 		}
 	}
-	fmt.Println("header: ", header)
 
 	return &Request{
 		Method: method,
